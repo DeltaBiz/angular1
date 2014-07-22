@@ -33,7 +33,7 @@
 	hcApp.controller('mainController', function($scope) {
 		// create a message to display in our view
 		$scope.message = 'Computing Location';
-		//navigator.geolocation.getCurrentPosition($scope.outputPosition, $scope.onError);
+		navigator.geolocation.getCurrentPosition($scope.outputPosition, $scope.onError);
 	});
 
 	hcApp.controller('aboutController', function($scope) {
@@ -56,6 +56,7 @@
     // onSuccess Geolocation
     //
     $scope.outputPosition = function(position) {
+    alert(position);
         $scope.geoMessage = 'Latitude: '           + position.coords.latitude              + '<br />' +
                             'Longitude: '          + position.coords.longitude             + '<br />' +
                             'Altitude: '           + position.coords.altitude              + '<br />' +
@@ -69,6 +70,7 @@
     // onError Callback receives a PositionError object
     //
     $scope.onError = function(error) {
+    alert(error+'error');
         $scope.geoMessage = 'code: '    + error.code    + '\n' +
                 'message: ' + error.message + '\n';
     }
