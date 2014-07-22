@@ -56,6 +56,7 @@
     // onSuccess Geolocation
     //
     function onSuccess(position) {
+        alert(position);
         $scope.geoMessage = 'Latitude: '           + position.coords.latitude              + '<br />' +
                             'Longitude: '          + position.coords.longitude             + '<br />' +
                             'Altitude: '           + position.coords.altitude              + '<br />' +
