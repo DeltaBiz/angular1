@@ -2,7 +2,13 @@
 	// Wait for Cordova to load
     //
     document.addEventListener("deviceready", onDeviceReady, false);
-
+	 // Cordova is ready
+    //
+    function onDeviceReady() {
+    
+	    angular.bootstrap(document, ['hcApp']);
+        
+    }
 	// create the module and name it hcApp
 	var hcApp = angular.module('hcApp', ['ngRoute']);
 
@@ -33,7 +39,7 @@
 	hcApp.controller('mainController', function($scope) {
 		// create a message to display in our view
 		$scope.message = 'Computing Location';
-		navigator.geolocation.getCurrentPosition(outputPosition, onError);
+		//navigator.geolocation.getCurrentPosition(outputPosition, onError);
 	});
 
 	hcApp.controller('aboutController', function($scope) {
@@ -46,17 +52,11 @@
 	
 	
 	
-    // Cordova is ready
-    //
-    function onDeviceReady() {
-	    angular.bootstrap(document, ['hcApp']);
-        
-    }
+   
 
     // onSuccess Geolocation
     //
-    $scope.outputPosition = function(position) {
-    alert(position);
+    hcApp.outputPosition = function(position) {
         $scope.geoMessage = 'Latitude: '           + position.coords.latitude              + '<br />' +
                             'Longitude: '          + position.coords.longitude             + '<br />' +
                             'Altitude: '           + position.coords.altitude              + '<br />' +
@@ -69,8 +69,8 @@
 
     // onError Callback receives a PositionError object
     //
-    $scope.onError = function(error) {
-    alert(error+'error');
+    hcApp.onError = function(error) {
+       alert(error+'error');
         $scope.geoMessage = 'code: '    + error.code    + '\n' +
                 'message: ' + error.message + '\n';
     }
