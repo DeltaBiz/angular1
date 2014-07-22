@@ -28,7 +28,8 @@
 				controller  : 'contactController'
 			});
 	});
-
+ 
+ 
 	// create the controller and inject Angular's $scope
 	hcApp.controller('mainController', function($scope,geolocation) {
 		// create a message to display in our view
