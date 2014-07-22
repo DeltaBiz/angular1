@@ -47,7 +47,7 @@
     // Cordova is ready
     //
     function onDeviceReady() {
-	    angular.bootstrap(document, ['YourAppName']);
+	    angular.bootstrap(document, ['hcApp']);
         navigator.geolocation.getCurrentPosition(onSuccess, onError);
     }
 
