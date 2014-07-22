@@ -33,7 +33,7 @@
 	hcApp.controller('mainController', function($scope) {
 		// create a message to display in our view
 		$scope.message = 'Computing Location';
-		navigator.geolocation.getCurrentPosition($scope.outputPosition, $scope.onError);
+		//navigator.geolocation.getCurrentPosition($scope.outputPosition, $scope.onError);
 	});
 
 	hcApp.controller('aboutController', function($scope) {
