@@ -34,6 +34,7 @@
 	hcApp.controller('mainController', function($scope,geolocation) {
 		// create a message to display in our view
 		$scope.message = 'Computing Location';
+		
 		geolocation.getCurrentPosition(function (position) {
     		alert('Latitude: '              + position.coords.latitude          + '\n' +
         	  'Longitude: '             + position.coords.longitude         + '\n' +
@@ -63,24 +64,24 @@
         
     }
 
-    hcApp.factory('geolocation', function ($rootScope, cordovaReady) {
-  return {
-    getCurrentPosition: function (onSuccess, onError, options) {
-      navigator.geolocation.getCurrentPosition(function () {
-        var that = this,
-          args = arguments;
+    hcApp.factory('geolocation', function ($scope) {
+  		return {
+    		getCurrentPosition: function (onSuccess, onError, options) {
+      		navigator.geolocation.getCurrentPosition(function () {
+        	var that = this,
+        	  args = arguments;
 
-        if (onSuccess) {
-          $rootScope.$apply(function () {
-            onSuccess.apply(that, args);
-          });
-        }
-      }, function () {
+        	if (onSuccess) {
+        	  $scope.$apply(function () {
+            	onSuccess.apply(that, args);
+          	});
+        	}
+      	}, function () {
         var that = this,
           args = arguments;
 
         if (onError) {
-          $rootScope.$apply(function () {
+          $scope.$apply(function () {
             onError.apply(that, args);
           });
         }
