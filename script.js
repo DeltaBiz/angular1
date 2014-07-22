@@ -57,7 +57,7 @@
     //
     function onSuccess(position) {
         alert(position);
-        $scope.geoMessage = 'Latitude: '           + position.coords.latitude              + '<br />' +
+        $("#geoMessage").html = 'Latitude: '           + position.coords.latitude              + '<br />' +
                             'Longitude: '          + position.coords.longitude             + '<br />' +
                             'Altitude: '           + position.coords.altitude              + '<br />' +
                             'Accuracy: '           + position.coords.accuracy              + '<br />' +
