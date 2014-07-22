@@ -30,11 +30,20 @@
 	});
 
 	// create the controller and inject Angular's $scope
-	hcApp.controller('mainController', function($scope) {
+	hcApp.controller('mainController', function($scope,geolocation) {
 		// create a message to display in our view
 		$scope.message = 'Computing Location';
-		navigator.geolocation.getCurrentPosition(outputPosition, onError);
-	});
+		geolocation.getCurrentPosition(function (position) {
+    		alert('Latitude: '              + position.coords.latitude          + '\n' +
+        	  'Longitude: '             + position.coords.longitude         + '\n' +
+        	  'Altitude: '              + position.coords.altitude          + '\n' +
+        	  'Accuracy: '              + position.coords.accuracy          + '\n' +
+        	  'Altitude Accuracy: '     + position.coords.altitudeAccuracy  + '\n' +
+        	  'Heading: '               + position.coords.heading           + '\n' +
+        	  'Speed: '                 + position.coords.speed             + '\n' +
+        	  'Timestamp: '             + position.timestamp                + '\n');
+  		});
+  	});
 
 	hcApp.controller('aboutController', function($scope) {
 		$scope.message = 'Look! I am an about page.';
@@ -53,24 +62,29 @@
         
     }
 
-    // onSuccess Geolocation
-    //
-    $scope.outputPosition = function(position) {
-    alert(position);
-        $scope.geoMessage = 'Latitude: '           + position.coords.latitude              + '<br />' +
-                            'Longitude: '          + position.coords.longitude             + '<br />' +
-                            'Altitude: '           + position.coords.altitude              + '<br />' +
-                            'Accuracy: '           + position.coords.accuracy              + '<br />' +
-                            'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
-                            'Heading: '            + position.coords.heading               + '<br />' +
-                            'Speed: '              + position.coords.speed                 + '<br />' +
-                            'Timestamp: '          + position.timestamp          + '<br />';
-    }
+    hcApp.factory('geolocation', function ($rootScope, cordovaReady) {
+  return {
+    getCurrentPosition: function (onSuccess, onError, options) {
+      navigator.geolocation.getCurrentPosition(function () {
+        var that = this,
+          args = arguments;
 
-    // onError Callback receives a PositionError object
-    //
-    $scope.onError = function(error) {
-    alert(error+'error');
-        $scope.geoMessage = 'code: '    + error.code    + '\n' +
-                'message: ' + error.message + '\n';
+        if (onSuccess) {
+          $rootScope.$apply(function () {
+            onSuccess.apply(that, args);
+          });
+        }
+      }, function () {
+        var that = this,
+          args = arguments;
+
+        if (onError) {
+          $rootScope.$apply(function () {
+            onError.apply(that, args);
+          });
+        }
+      },
+      options);
     }
+  };
+});
