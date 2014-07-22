@@ -56,7 +56,6 @@
     // onSuccess Geolocation
     //
     function onSuccess(position) {
-    alert('here');
         $scope.geoMessage = 'Latitude: '           + position.coords.latitude              + '<br />' +
                             'Longitude: '          + position.coords.longitude             + '<br />' +
                             'Altitude: '           + position.coords.altitude              + '<br />' +
@@ -65,8 +64,9 @@
                             'Heading: '            + position.coords.heading               + '<br />' +
                             'Speed: '              + position.coords.speed                 + '<br />' +
                             'Timestamp: '          + position.timestamp          + '<br />';
+    	$scope.$apply();
     }
-
+	
     // onError Callback receives a PositionError object
     //
     function onError(error) {
